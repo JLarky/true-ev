@@ -27,7 +27,7 @@ export const METRICS: MetricSpec[] = [
     label: "Roadtrip range",
     unit: "mi",
     direction: "higher-is-better",
-    condition: "70 mph · 10–80% · 10°C",
+    condition: "70 mph · 80–10% · 10°C",
   },
   {
     key: "charge10to80",
