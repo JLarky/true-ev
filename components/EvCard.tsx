@@ -22,7 +22,7 @@ export function EvCard({ ev }: Props) {
       <dl className="grid grid-cols-3 gap-3 border-t border-neutral-100 pt-4">
         <div>
           <dt className="text-[10px] uppercase tracking-wide text-neutral-500">
-            Range
+            Hwy 10–80%
           </dt>
           <dd className="mt-1 text-xl font-semibold tabular-nums">
             {ev.range70mph_10to80}
@@ -31,7 +31,7 @@ export function EvCard({ ev }: Props) {
         </div>
         <div>
           <dt className="text-[10px] uppercase tracking-wide text-neutral-500">
-            10–80%
+            Charge 10–80%
           </dt>
           <dd className="mt-1 text-xl font-semibold tabular-nums">
             {ev.charge10to80}
@@ -40,7 +40,7 @@ export function EvCard({ ev }: Props) {
         </div>
         <div>
           <dt className="text-[10px] uppercase tracking-wide text-neutral-500">
-            10–50%
+            Charge 10–50%
           </dt>
           <dd className="mt-1 text-xl font-semibold tabular-nums">
             {ev.charge10to50}
