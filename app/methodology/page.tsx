@@ -27,7 +27,7 @@ export default function MethodologyPage() {
         </Bullet>
         <Bullet>Constant 70 mph cruise.</Bullet>
         <Bullet>
-          Measured between 10% and 80% usable battery. Skips the bottom of
+          Measured between 80% and 10% usable battery. Skips the bottom of
           the pack (where some cars derate) and the top (where charging
           tapers and most road-trippers unplug).
         </Bullet>
