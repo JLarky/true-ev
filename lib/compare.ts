@@ -1,7 +1,7 @@
 import type { EV } from "@/data/evs";
 
 /**
- * Sign convention used everywhere in the UI:
+ * Sign convention used in the compare page:
  *   positive percent → the candidate is BETTER than the reference
  *   negative percent → the candidate is WORSE than the reference
  *
@@ -57,33 +57,21 @@ export function relativePercent(
 }
 
 export function formatPercent(pct: number): string {
-  if (Math.abs(pct) < 0.5) return "≈ baseline";
+  if (Math.abs(pct) < 0.5) return "≈ tie";
   const rounded = Math.round(pct);
   return `${rounded > 0 ? "+" : ""}${rounded}%`;
 }
 
-/** Plain-English comparison sentence used on the vehicle page. */
-export function describeComparison(
-  candidate: EV,
-  reference: EV,
-  metric: MetricSpec,
-): string {
-  const pct = relativePercent(
-    candidate[metric.key],
-    reference[metric.key],
-    metric.direction,
-  );
-  const magnitude = Math.abs(Math.round(pct));
-  if (magnitude < 1) {
-    return `${metric.label} is essentially the same as the ${reference.name}.`;
+/** Index of the best vehicle in `set` for a given metric. */
+export function bestIndex(set: EV[], metric: MetricSpec): number {
+  if (set.length === 0) return -1;
+  let bestIdx = 0;
+  for (let i = 1; i < set.length; i++) {
+    const a = set[i][metric.key];
+    const b = set[bestIdx][metric.key];
+    const aIsBetter =
+      metric.direction === "higher-is-better" ? a > b : a < b;
+    if (aIsBetter) bestIdx = i;
   }
-  const verb =
-    metric.key === "range70mph_10to80"
-      ? pct > 0
-        ? "goes farther on the highway than"
-        : "goes less far on the highway than"
-      : pct > 0
-        ? "charges faster than"
-        : "charges slower than";
-  return `This vehicle ${verb} the ${reference.name} by about ${magnitude}%.`;
+  return bestIdx;
 }

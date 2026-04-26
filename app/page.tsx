@@ -1,13 +1,10 @@
 import Link from "next/link";
-import { evs, BASELINE_SLUG } from "@/data/evs";
+import { evs } from "@/data/evs";
 import { EvCard } from "@/components/EvCard";
 import { EstimatedBadge } from "@/components/EstimatedBadge";
 import { EvSearch } from "./EvSearch";
 
 export default function HomePage() {
-  const baseline = evs.find((e) => e.slug === BASELINE_SLUG)!;
-  const others = evs.filter((e) => e.slug !== BASELINE_SLUG);
-
   return (
     <div className="flex flex-col gap-12">
       <section className="flex flex-col gap-6">
@@ -39,10 +36,10 @@ export default function HomePage() {
             Compare vehicles →
           </Link>
           <Link
-            href={`/ev/${baseline.slug}`}
+            href="/methodology"
             className="rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium hover:border-ink"
           >
-            See the baseline (Model Y)
+            How we measure
           </Link>
         </div>
       </section>
@@ -84,8 +81,7 @@ export default function HomePage() {
         </div>
         <EvSearch evs={evs} />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <EvCard ev={baseline} />
-          {others.map((ev) => (
+          {evs.map((ev) => (
             <EvCard key={ev.slug} ev={ev} />
           ))}
         </div>

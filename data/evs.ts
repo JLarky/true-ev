@@ -31,20 +31,17 @@ export type EV = {
   estimated: boolean;
 };
 
-export const BASELINE_SLUG = "tesla-model-y-long-range-awd";
-
 export const evs: EV[] = [
   {
-    slug: BASELINE_SLUG,
-    name: "Tesla Model Y Long Range AWD",
-    year: 2026,
-    segment: "Midsize SUV — Baseline reference",
-    range70mph_10to80: 230,
-    charge10to80: 27,
-    charge10to50: 16,
+    slug: "ford-mustang-mach-e-awd-er",
+    name: "Ford Mustang Mach-E AWD Extended Range",
+    year: 2025,
+    segment: "Crossover — 400V architecture",
+    range70mph_10to80: 210,
+    charge10to80: 38,
+    charge10to50: 22,
     notes: [
-      "System baseline used for all relative comparisons.",
-      "19\" wheels assumed for the reference configuration.",
+      "Charging tapers earlier in the curve; 10–50% stays competitive.",
     ],
     source: "modeled-public-aggregate",
     estimated: true,
@@ -59,7 +56,7 @@ export const evs: EV[] = [
     charge10to50: 11,
     notes: [
       "800V pack delivers a notably flat charge curve.",
-      "Highway efficiency trails baseline; charging speed leads it.",
+      "Highway efficiency is on the lower end of the dataset.",
     ],
     source: "modeled-public-aggregate",
     estimated: true,
@@ -73,36 +70,7 @@ export const evs: EV[] = [
     charge10to80: 21,
     charge10to50: 12,
     notes: [
-      "Mechanically similar to Ioniq 5 with slightly lower drag.",
-    ],
-    source: "modeled-public-aggregate",
-    estimated: true,
-  },
-  {
-    slug: "ford-mustang-mach-e-awd-er",
-    name: "Ford Mustang Mach-E AWD Extended Range",
-    year: 2025,
-    segment: "Crossover — 400V architecture",
-    range70mph_10to80: 210,
-    charge10to80: 38,
-    charge10to50: 22,
-    notes: [
-      "Charging tapers earlier than baseline — 10–50% remains competitive.",
-    ],
-    source: "modeled-public-aggregate",
-    estimated: true,
-  },
-  {
-    slug: "rivian-r1s-dual-motor",
-    name: "Rivian R1S Dual Motor",
-    year: 2025,
-    segment: "Full-size SUV — Adventure",
-    range70mph_10to80: 225,
-    charge10to80: 41,
-    charge10to50: 23,
-    notes: [
-      "Large frontal area lowers highway efficiency relative to the pack size.",
-      "Charge curve is broad but peaks below 800V competitors.",
+      "Mechanically similar to the Ioniq 5 with slightly lower drag.",
     ],
     source: "modeled-public-aggregate",
     estimated: true,
@@ -122,16 +90,37 @@ export const evs: EV[] = [
     source: "modeled-public-aggregate",
     estimated: true,
   },
+  {
+    slug: "rivian-r1s-dual-motor",
+    name: "Rivian R1S Dual Motor",
+    year: 2025,
+    segment: "Full-size SUV — Adventure",
+    range70mph_10to80: 225,
+    charge10to80: 41,
+    charge10to50: 23,
+    notes: [
+      "Large frontal area lowers highway efficiency relative to pack size.",
+      "Charge curve is broad but peaks below 800V competitors.",
+    ],
+    source: "modeled-public-aggregate",
+    estimated: true,
+  },
+  {
+    slug: "tesla-model-y-long-range-awd",
+    name: "Tesla Model Y Long Range AWD",
+    year: 2026,
+    segment: "Midsize SUV",
+    range70mph_10to80: 230,
+    charge10to80: 27,
+    charge10to50: 16,
+    notes: [
+      "19\" wheels assumed for the reference configuration.",
+    ],
+    source: "modeled-public-aggregate",
+    estimated: true,
+  },
 ];
 
 export function getEvBySlug(slug: string): EV | undefined {
   return evs.find((e) => e.slug === slug);
-}
-
-export function getBaseline(): EV {
-  const baseline = getEvBySlug(BASELINE_SLUG);
-  if (!baseline) {
-    throw new Error("Baseline EV missing from dataset");
-  }
-  return baseline;
 }

@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { evs, getBaseline, getEvBySlug, BASELINE_SLUG } from "@/data/evs";
-import {
-  METRICS,
-  describeComparison,
-  formatPercent,
-  relativePercent,
-} from "@/lib/compare";
+import { evs, getEvBySlug } from "@/data/evs";
+import { METRICS } from "@/lib/compare";
 import { MetricCard } from "@/components/MetricCard";
 import { EstimatedBadge } from "@/components/EstimatedBadge";
 
@@ -31,27 +26,16 @@ export default function VehiclePage({
   const ev = getEvBySlug(params.slug);
   if (!ev) notFound();
 
-  const baseline = getBaseline();
-  const isBaseline = ev.slug === BASELINE_SLUG;
-
   return (
     <div className="flex flex-col gap-10">
       <div>
-        <Link
-          href="/"
-          className="text-sm text-neutral-600 hover:text-ink"
-        >
+        <Link href="/" className="text-sm text-neutral-600 hover:text-ink">
           ← All vehicles
         </Link>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <span className="text-sm font-medium uppercase tracking-wide text-neutral-500">
             {ev.year}
           </span>
-          {isBaseline && (
-            <span className="rounded-full bg-ink px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
-              Baseline reference
-            </span>
-          )}
           <EstimatedBadge variant="card" />
         </div>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -68,69 +52,15 @@ export default function VehiclePage({
           </p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {METRICS.map((metric) => {
-            const value = ev[metric.key];
-            const pct = isBaseline
-              ? null
-              : relativePercent(
-                  value,
-                  baseline[metric.key],
-                  metric.direction,
-                );
-            return (
-              <MetricCard
-                key={metric.key}
-                metric={metric}
-                value={value}
-                relativePct={pct}
-              />
-            );
-          })}
+          {METRICS.map((metric) => (
+            <MetricCard
+              key={metric.key}
+              metric={metric}
+              value={ev[metric.key]}
+            />
+          ))}
         </div>
       </section>
-
-      {!isBaseline && (
-        <section className="rounded-xl border border-neutral-200 bg-white p-6">
-          <h2 className="text-lg font-semibold">What this means</h2>
-          <ul className="mt-3 space-y-2 text-neutral-700">
-            {METRICS.map((metric) => (
-              <li key={metric.key} className="flex gap-2">
-                <span
-                  aria-hidden
-                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-400"
-                />
-                <span>{describeComparison(ev, baseline, metric)}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-5 rounded-md border border-neutral-200 bg-neutral-50 p-4 text-sm text-neutral-700">
-            Compared to the {baseline.name} baseline:
-            <ul className="mt-2 space-y-1">
-              {METRICS.map((metric) => {
-                const pct = relativePercent(
-                  ev[metric.key],
-                  baseline[metric.key],
-                  metric.direction,
-                );
-                const tone =
-                  pct > 0.5
-                    ? "text-emerald-700"
-                    : pct < -0.5
-                      ? "text-rose-700"
-                      : "text-neutral-600";
-                return (
-                  <li key={metric.key} className="flex justify-between gap-3">
-                    <span>{metric.label}</span>
-                    <span className={`font-medium ${tone}`}>
-                      {formatPercent(pct)}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </section>
-      )}
 
       {ev.notes && ev.notes.length > 0 && (
         <section>
@@ -160,16 +90,10 @@ export default function VehiclePage({
 
       <div className="flex flex-wrap gap-3">
         <Link
-          href={`/compare?slugs=${ev.slug},${baseline.slug}`}
+          href={`/compare?slugs=${ev.slug}`}
           className="rounded-md bg-ink px-4 py-2 text-sm font-medium text-white hover:opacity-90"
         >
-          Compare with baseline →
-        </Link>
-        <Link
-          href="/compare"
-          className="rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium hover:border-ink"
-        >
-          Open full compare tool
+          Compare with other vehicles →
         </Link>
       </div>
     </div>

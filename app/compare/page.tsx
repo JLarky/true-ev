@@ -1,4 +1,4 @@
-import { evs, BASELINE_SLUG } from "@/data/evs";
+import { evs } from "@/data/evs";
 import { CompareView } from "./CompareView";
 
 export const metadata = {
@@ -21,8 +21,8 @@ export default function ComparePage({
         </h1>
         <p className="mt-2 max-w-2xl text-neutral-700">
           Pick 2–4 vehicles. Numbers are reported on the TrueEV canonical
-          spec, with percent differences taken against the{" "}
-          {evs.find((e) => e.slug === BASELINE_SLUG)?.name} baseline.
+          spec. The best result in each row is highlighted within your
+          current selection.
         </p>
       </div>
       <CompareView evs={evs} initialSlugs={initialSlugs} />

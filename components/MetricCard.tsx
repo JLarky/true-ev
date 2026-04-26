@@ -1,23 +1,12 @@
 import { EstimatedBadge } from "./EstimatedBadge";
-import { formatPercent, type MetricSpec } from "@/lib/compare";
+import type { MetricSpec } from "@/lib/compare";
 
 type Props = {
   metric: MetricSpec;
   value: number;
-  /** Percent better-than-baseline. `null` when this card is itself the baseline. */
-  relativePct: number | null;
 };
 
-export function MetricCard({ metric, value, relativePct }: Props) {
-  const tone =
-    relativePct === null
-      ? "text-neutral-500"
-      : relativePct > 0.5
-        ? "text-emerald-700"
-        : relativePct < -0.5
-          ? "text-rose-700"
-          : "text-neutral-500";
-
+export function MetricCard({ metric, value }: Props) {
   return (
     <div className="flex flex-col rounded-xl border border-neutral-200 bg-white p-5">
       <div className="flex items-start justify-between gap-3">
@@ -33,16 +22,11 @@ export function MetricCard({ metric, value, relativePct }: Props) {
         </span>
         <span className="text-base text-neutral-500">{metric.unit}</span>
       </div>
-      <div className="mt-3 text-sm">
-        {relativePct === null ? (
-          <span className="text-neutral-500">Baseline reference vehicle</span>
-        ) : (
-          <span className={tone}>
-            {formatPercent(relativePct)}{" "}
-            <span className="text-neutral-500">vs Model Y baseline</span>
-          </span>
-        )}
-      </div>
+      <p className="mt-3 text-xs text-neutral-500">
+        {metric.direction === "higher-is-better"
+          ? "Higher is better"
+          : "Lower is better"}
+      </p>
     </div>
   );
 }

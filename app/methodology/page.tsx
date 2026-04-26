@@ -41,12 +41,21 @@ export default function MethodologyPage() {
         <Bullet>Output: minutes.</Bullet>
       </Section>
 
-      <Section title="Why a baseline?">
+      <Section title="No anchored baseline">
         <p className="text-neutral-700">
-          The 2026 Tesla Model Y Long Range AWD on 19&Prime; wheels is the
-          baseline reference vehicle. Every comparison is reported as a
-          percent better or worse than the Model Y, in the direction that
-          matters (more miles is better, fewer minutes is better).
+          TrueEV does not designate any single vehicle as the &ldquo;reference
+          car.&rdquo; A measurement standard shouldn&rsquo;t define itself
+          relative to one product on the market — that imports brand bias
+          into the protocol. Vehicle pages report absolute numbers only.
+        </p>
+        <p className="mt-3 text-neutral-700">
+          When you compare vehicles on the{" "}
+          <a href="/compare" className="underline hover:text-ink">
+            comparison page
+          </a>
+          , the best result in each row is highlighted within your current
+          selection, and percentages describe the gap to that best — never
+          to a third car you didn&rsquo;t choose.
         </p>
       </Section>
 

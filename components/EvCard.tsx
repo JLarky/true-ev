@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { EV } from "@/data/evs";
-import { BASELINE_SLUG } from "@/data/evs";
 import { EstimatedBadge } from "./EstimatedBadge";
 
 type Props = {
@@ -8,27 +7,17 @@ type Props = {
 };
 
 export function EvCard({ ev }: Props) {
-  const isBaseline = ev.slug === BASELINE_SLUG;
   return (
     <Link
       href={`/ev/${ev.slug}`}
       className="group flex flex-col gap-4 rounded-xl border border-neutral-200 bg-white p-5 transition hover:border-ink hover:shadow-sm"
     >
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">
-            {ev.year}
-          </p>
-          <h3 className="mt-1 text-lg font-semibold leading-tight">
-            {ev.name}
-          </h3>
-          <p className="mt-1 text-sm text-neutral-600">{ev.segment}</p>
-        </div>
-        {isBaseline && (
-          <span className="shrink-0 rounded-full bg-ink px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
-            Baseline
-          </span>
-        )}
+      <div>
+        <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">
+          {ev.year}
+        </p>
+        <h3 className="mt-1 text-lg font-semibold leading-tight">{ev.name}</h3>
+        <p className="mt-1 text-sm text-neutral-600">{ev.segment}</p>
       </div>
       <dl className="grid grid-cols-3 gap-3 border-t border-neutral-100 pt-4">
         <div>

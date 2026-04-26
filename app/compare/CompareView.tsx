@@ -3,9 +3,9 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { EV } from "@/data/evs";
-import { BASELINE_SLUG } from "@/data/evs";
 import {
   METRICS,
+  bestIndex,
   formatPercent,
   relativePercent,
   type MetricSpec,
@@ -23,13 +23,15 @@ const MAX_SELECTION = 4;
 export function CompareView({ evs, initialSlugs }: Props) {
   const defaults = useMemo(() => {
     if (initialSlugs.length >= MIN_SELECTION) return initialSlugs;
-    const baseline = BASELINE_SLUG;
-    const second = evs.find((e) => e.slug !== baseline)?.slug;
-    return [baseline, second].filter(Boolean) as string[];
+    const seed = [...initialSlugs];
+    for (const ev of evs) {
+      if (seed.length >= MIN_SELECTION) break;
+      if (!seed.includes(ev.slug)) seed.push(ev.slug);
+    }
+    return seed;
   }, [evs, initialSlugs]);
 
   const [selected, setSelected] = useState<string[]>(defaults);
-  const baseline = evs.find((e) => e.slug === BASELINE_SLUG)!;
 
   const toggle = (slug: string) => {
     setSelected((prev) => {
@@ -83,11 +85,6 @@ export function CompareView({ evs, initialSlugs }: Props) {
                 }
               >
                 {ev.name}
-                {ev.slug === BASELINE_SLUG && (
-                  <span className="ml-2 text-[10px] uppercase tracking-wide opacity-80">
-                    baseline
-                  </span>
-                )}
               </button>
             );
           })}
@@ -121,35 +118,25 @@ export function CompareView({ evs, initialSlugs }: Props) {
           </thead>
           <tbody>
             {METRICS.map((metric) => (
-              <Row
-                key={metric.key}
-                metric={metric}
-                chosen={chosen}
-                baseline={baseline}
-              />
+              <Row key={metric.key} metric={metric} chosen={chosen} />
             ))}
           </tbody>
         </table>
       </section>
 
       <p className="text-xs text-neutral-500">
-        Percent differences are reported as &ldquo;better than baseline.&rdquo;
-        Positive means more range / faster charging vs.{" "}
-        {baseline.name}. Negative means worse.
+        The best result in each row is highlighted, and the percent shown
+        next to non-best cells is the gap to that best — within your current
+        selection only.
       </p>
     </div>
   );
 }
 
-function Row({
-  metric,
-  chosen,
-  baseline,
-}: {
-  metric: MetricSpec;
-  chosen: EV[];
-  baseline: EV;
-}) {
+function Row({ metric, chosen }: { metric: MetricSpec; chosen: EV[] }) {
+  const best = bestIndex(chosen, metric);
+  const bestValue = best >= 0 ? chosen[best][metric.key] : null;
+
   return (
     <tr className="border-b border-neutral-100 last:border-b-0">
       <td className="px-4 py-4 align-top">
@@ -161,30 +148,37 @@ function Row({
             : "lower is better"}
         </div>
       </td>
-      {chosen.map((ev) => {
+      {chosen.map((ev, i) => {
         const value = ev[metric.key];
-        const isBaseline = ev.slug === baseline.slug;
-        const pct = isBaseline
-          ? null
-          : relativePercent(value, baseline[metric.key], metric.direction);
-        const tone =
-          pct === null
-            ? "text-neutral-500"
-            : pct > 0.5
-              ? "text-emerald-700"
-              : pct < -0.5
-                ? "text-rose-700"
-                : "text-neutral-500";
+        const isBest = i === best;
+        const gap =
+          bestValue === null || isBest
+            ? null
+            : relativePercent(value, bestValue, metric.direction);
         return (
-          <td key={ev.slug} className="px-4 py-4 align-top">
+          <td
+            key={ev.slug}
+            className={`px-4 py-4 align-top ${
+              isBest ? "bg-emerald-50/60" : ""
+            }`}
+          >
             <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl font-semibold tabular-nums">
+              <span
+                className={`text-2xl font-semibold tabular-nums ${
+                  isBest ? "text-emerald-700" : ""
+                }`}
+              >
                 {value}
               </span>
               <span className="text-xs text-neutral-500">{metric.unit}</span>
+              {isBest && (
+                <span className="ml-1 rounded-full bg-emerald-600 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+                  Best
+                </span>
+              )}
             </div>
-            <div className={`mt-1 text-xs ${tone}`}>
-              {pct === null ? "baseline" : `${formatPercent(pct)} vs baseline`}
+            <div className="mt-1 text-xs text-neutral-500">
+              {gap === null ? "—" : `${formatPercent(gap)} vs best`}
             </div>
           </td>
         );
