@@ -49,8 +49,8 @@ export default function HomePage() {
       <section className="grid gap-6 rounded-2xl border border-neutral-200 bg-white p-6 sm:grid-cols-3">
         <Spec
           label="Roadtrip range"
-          value="70 mph · 10–80% · 10°C"
-          body="How far the car goes on a single highway leg between fast-charge stops. Measured at 70 mph constant, between 10% and 80% usable battery, at a 10°C reference ambient temperature."
+          value="70 mph · 80–10% · 10°C"
+          body="How far the car goes on a single highway leg between fast-charge stops. Measured at 70 mph constant, between 80% and 10% usable battery, at a 10°C reference ambient temperature."
         />
         <Spec
           label="10–80% fast charge"
