@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const metadata: Metadata = {
   title: "TrueEV — Standardized real-world EV metrics",
   description:
-    "Normalized EV comparison data: highway range and charging times measured against a single, transparent specification. Pre-standard release uses modeled estimates.",
+    "Normalized EV comparison data: roadtrip range and charging times measured against a single, transparent specification. Pre-standard release uses modeled estimates.",
 };
 
 export default function RootLayout({

@@ -24,7 +24,7 @@ export type MetricSpec = {
 export const METRICS: MetricSpec[] = [
   {
     key: "range70mph_10to80",
-    label: "Highway range",
+    label: "Roadtrip range",
     unit: "mi",
     direction: "higher-is-better",
     condition: "70 mph · 10–80% · 10°C",

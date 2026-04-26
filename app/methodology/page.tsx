@@ -20,11 +20,19 @@ export default function MethodologyPage() {
         vehicle.
       </p>
 
-      <Section title="1. Highway range">
+      <Section title="1. Roadtrip range">
+        <Bullet>
+          Models a single highway leg between fast-charge stops — not a
+          full pack from 100% to 0%.
+        </Bullet>
         <Bullet>Constant 70 mph cruise.</Bullet>
-        <Bullet>Measured from 10% to 80% usable battery.</Bullet>
+        <Bullet>
+          Measured between 10% and 80% usable battery. Skips the bottom of
+          the pack (where some cars derate) and the top (where charging
+          tapers and most road-trippers unplug).
+        </Bullet>
         <Bullet>Reference ambient temperature: 10&deg;C.</Bullet>
-        <Bullet>Output: miles.</Bullet>
+        <Bullet>Output: miles per leg.</Bullet>
       </Section>
 
       <Section title="2. Charging time, 10–80%">

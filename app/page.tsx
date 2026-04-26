@@ -23,7 +23,7 @@ export default function HomePage() {
           EPA, WLTP, manufacturer claims — every spec sheet uses a different
           test, and none of them describe the drive you&rsquo;re actually
           taking. TrueEV publishes one canonical spec, applies it to every
-          vehicle, and reports what comes out: real highway range and real
+          vehicle, and reports what comes out: real roadtrip range and real
           fast-charge times, on the same axes.
         </p>
         <div className="rounded-xl border border-amber-300 bg-amber-50/60 p-4 text-sm text-amber-900">
@@ -48,9 +48,9 @@ export default function HomePage() {
 
       <section className="grid gap-6 rounded-2xl border border-neutral-200 bg-white p-6 sm:grid-cols-3">
         <Spec
-          label="Highway range"
+          label="Roadtrip range"
           value="70 mph · 10–80% · 10°C"
-          body="Constant 70 mph cruise from 10% to 80% usable battery, at a 10°C reference ambient temperature."
+          body="How far the car goes on a single highway leg between fast-charge stops. Measured at 70 mph constant, between 10% and 80% usable battery, at a 10°C reference ambient temperature."
         />
         <Spec
           label="10–80% fast charge"

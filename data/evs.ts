@@ -17,7 +17,7 @@ export type EV = {
   year: number;
   /** Short manufacturer/segment hint for the card UI. */
   segment: string;
-  /** Highway range, 70 mph constant, 10–80% usable battery, 10°C ambient (miles). */
+  /** Roadtrip range: 70 mph constant, 10–80% usable battery, 10°C ambient (miles per leg). */
   range70mph_10to80: number;
   /** DC fast charge time, 10–80%, preconditioned battery (minutes). */
   charge10to80: number;

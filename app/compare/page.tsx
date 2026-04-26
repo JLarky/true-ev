@@ -4,7 +4,7 @@ import { CompareView } from "./CompareView";
 export const metadata = {
   title: "Compare EVs — TrueEV",
   description:
-    "Side-by-side EV comparison on the TrueEV canonical spec: highway range and DC fast charging, normalized.",
+    "Side-by-side EV comparison on the TrueEV canonical spec: roadtrip range and DC fast charging, normalized.",
 };
 
 export default function ComparePage({

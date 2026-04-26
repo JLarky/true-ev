@@ -14,7 +14,7 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   if (!ev) return {};
   return {
     title: `${ev.name} — TrueEV`,
-    description: `${ev.name}: ${ev.range70mph_10to80} mi highway range, ${ev.charge10to80} min 10–80% fast charging. Modeled estimates against the TrueEV canonical spec.`,
+    description: `${ev.name}: ${ev.range70mph_10to80} mi roadtrip range, ${ev.charge10to80} min 10–80% fast charging. Modeled estimates against the TrueEV canonical spec.`,
   };
 }
 
