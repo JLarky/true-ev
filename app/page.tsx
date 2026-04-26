@@ -15,14 +15,16 @@ export default function HomePage() {
           <EstimatedBadge variant="card" />
         </div>
         <h1 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-          Real-world EV numbers,
+          Tired of range numbers
           <br />
-          measured the same way.
+          that don&rsquo;t survive the highway?
         </h1>
         <p className="max-w-2xl text-lg text-neutral-700">
-          TrueEV strips marketing bias out of EV comparisons. Every vehicle is
-          described against one canonical spec — highway range and DC fast
-          charging — so two cars are always compared on the same axes.
+          EPA, WLTP, manufacturer claims — every spec sheet uses a different
+          test, and none of them describe the drive you&rsquo;re actually
+          taking. TrueEV publishes one canonical spec, applies it to every
+          vehicle, and reports what comes out: real highway range and real
+          fast-charge times, on the same axes.
         </p>
         <div className="rounded-xl border border-amber-300 bg-amber-50/60 p-4 text-sm text-amber-900">
           All values are modeled estimates based on aggregated public data and
